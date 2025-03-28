@@ -2,18 +2,40 @@
 <html>
 <head>
     <title>Roommate Finder</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
     <div class="container">
         <h2>Roommate Finder</h2>
-        <form method="post">
+        <form action="/find-roommates" method="post">
             <input type="text" name="name" placeholder="Enter your Name" required>
             <button type="submit">Find Roommates</button>
         </form>
-        <div class="result">
-            {{ result }}
+        <div class="result" id="result">
+            <!-- Result will be dynamically populated -->
         </div>
     </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.querySelector('input[name="name"]').value;
+            
+            try {
+                const response = await fetch('/find-roommates', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `name=${encodeURIComponent(name)}`
+                });
+                
+                const result = await response.text();
+                document.getElementById('result').textContent = result;
+            } catch (error) {
+                document.getElementById('result').textContent = 'An error occurred while finding roommates.';
+            }
+        });
+    </script>
 </body>
 </html>
