@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Roommate Finder</title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    <div class="background-blobs"></div>
+    
     <div class="container">
-        <h2>🔍 Roommate Finder</h2>
-        <p class="subtext">Enter the name as it appears on your ID card</p>
+        <h2 class="header">🏠 Roommate Finder</h2>
+        <p class="typing-text" id="typingText">Finding your roommate...</p>
+
         <form id="roommateForm">
             <input type="text" name="name" placeholder="Enter your full name" required>
-            <button type="submit">Find Roommates</button>
+            <button type="submit">🔎 Find Roommates</button>
         </form>
-        <div class="result" id="result">
-            <!-- Result will be dynamically populated -->
-        </div>
+
+        <div class="spinner" id="spinner" style="display: none;"></div>
+
+        <div class="result" id="result"></div>
+
         <p style="text-align: center; font-size: 14px; color: gray; margin-top: 10px;">
             Built with ❤️ by Team A.H.A from CH
         </p>
     </div>
 
     <script>
-        document.getElementById('roommateForm').addEventListener('submit', async (e) => {
+        const form = document.getElementById('roommateForm');
+        const spinner = document.getElementById('spinner');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.querySelector('input[name="name"]').value;
+            spinner.style.display = 'block';
+            resultDiv.textContent = '';
+            resultDiv.classList.remove('fade-in');
 
             try {
                 const response = await fetch('https://project1-production-0570.up.railway.app/find-roommates', {
@@ -36,11 +48,28 @@
                 });
 
                 const result = await response.text();
-                document.getElementById('result').textContent = result;
+                spinner.style.display = 'none';
+                resultDiv.textContent = result;
+                resultDiv.classList.add('fade-in');
             } catch (error) {
-                document.getElementById('result').textContent = '⚠️ An error occurred while finding roommates.';
+                spinner.style.display = 'none';
+                resultDiv.innerHTML = '❌ <strong>Error:</strong> Could not find roommates. Try again later.';
+                resultDiv.classList.add('fade-in');
             }
         });
+
+        // Typing animation
+        const text = "Finding your roommate...";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typingText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        document.getElementById("typingText").innerHTML = "";
+        typeWriter();
     </script>
 </body>
 </html>
