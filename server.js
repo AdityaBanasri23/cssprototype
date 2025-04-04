@@ -95,7 +95,7 @@ app.use((err, req, res, next) => {
 });
 
 // API Route with additional error handling
-app.post('https://verdant-profiterole-9e05e2.netlify.app/find-roommates', async (req, res, next) => {
+app.post('https://verdant-profiterole-9e05e2.netlify.app//find-roommates', async (req, res, next) => {
     try {
         const name = req.body.name;
         const result = await findRoommates(name);
