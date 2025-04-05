@@ -6,91 +6,139 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background: linear-gradient(135deg, #f0f4ff, #e0f7fa);
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
     background-attachment: fixed;
+    color: #2d3748;
 }
 
 /* Main Card Container */
 .container {
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 
+                0 0 0 1px rgba(255, 255, 255, 0.15) inset;
     padding: 40px 30px;
-    max-width: 400px;
+    max-width: 440px;
     width: 100%;
     text-align: center;
-    transition: box-shadow 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 
+                0 0 0 1px rgba(255, 255, 255, 0.15) inset;
 }
 
 /* Header */
 .header {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #4a5568;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Typing Text Style */
 .typing-text {
-    font-size: 14px;
-    color: #555;
-    height: 20px;
-    margin-bottom: 25px;
-    min-height: 20px;
+    font-size: 15px;
+    color: #718096;
+    height: 24px;
+    margin-bottom: 30px;
+    min-height: 24px;
+    font-weight: 500;
 }
 
 /* Inputs */
 input {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    border: 2px solid rgba(203, 213, 224, 0.5);
     font-size: 16px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    font-family: 'Poppins', sans-serif;
 }
 
 input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+    border-color: #6a11cb;
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
     outline: none;
+    background: white;
+}
+
+input::placeholder {
+    color: #a0aec0;
 }
 
 /* Button */
 button {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     font-size: 16px;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    font-weight: 600;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 14px;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+button:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(106, 17, 203, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(106, 17, 203, 0.5);
+}
+
+button:hover:before {
+    transform: rotate(45deg) translateX(50%);
+    opacity: 1;
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 10px rgba(106, 17, 203, 0.4);
 }
 
 /* Spinner */
 .spinner {
-    border: 4px solid rgba(200, 200, 200, 0.3);
-    border-top: 4px solid #007bff;
+    border: 4px solid rgba(106, 17, 203, 0.1);
+    border-top: 4px solid #6a11cb;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    margin: 20px auto;
-    animation: spin 1s linear infinite;
+    width: 36px;
+    height: 36px;
+    margin: 25px auto;
+    animation: spin 1s cubic-bezier(0.5, 0.1, 0.15, 1) infinite;
 }
 
 @keyframes spin {
@@ -100,56 +148,61 @@ button:hover {
 
 /* Result Box */
 .result {
-    margin-top: 20px;
+    margin-top: 25px;
+    padding: 15px;
     font-size: 18px;
-    color: #333;
-    min-height: 24px;
-    animation: fadeIn 0.4s ease;
+    color: #4a5568;
+    min-height: 30px;
+    animation: fadeIn 0.5s ease;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(203, 213, 224, 0.3);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Footer Text */
 .footer {
-    font-size: 12px;
-    color: #444;
-    margin-top: 30px;
-    opacity: 0.6;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 35px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 /* ========================= */
 /* 📱 Mobile Optimization    */
 /* ========================= */
-
 @media (max-width: 600px) {
     body {
-        background: #f8f9fa;
+        background: linear-gradient(135deg, #8a94e8, #a777e3);
     }
-
+    
     .container {
-        padding: 30px 20px;
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
+        padding: 35px 25px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     }
-
-    button {
-        font-size: 15px;
-    }
-
-    input {
-        font-size: 15px;
-    }
-
+    
     .header {
-        font-size: 24px;
+        font-size: 28px;
     }
-
-    .typing-text {
-        font-size: 13px;
+    
+    input, button {
+        border-radius: 12px;
+        padding: 14px;
+    }
+    
+    .result {
+        padding: 12px;
     }
 }
+
+/* Font import for Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
